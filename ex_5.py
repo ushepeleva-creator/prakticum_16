@@ -26,5 +26,3 @@ n = int(input())
 print(sieve_of_eratostenes(n))
 
 
-if __name__ == "__main__":
-    main()
