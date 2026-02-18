@@ -1,47 +1,33 @@
 from itertools import combinations
 
 
-def get_all_subsets(input_str: str) -> list:
+def get_all_subsets(numbers):
     """
-    Generate all possible subsets of a set of natural numbers.
-
+    Generate all possible subsets of unique numbers.
+    
     Args:
-        input_str (str): String containing natural numbers separated by spaces.
-
+        numbers: List of integers (may contain duplicates)
+    
     Returns:
-        list: List of tuples, where each tuple represents a subset.
+        List of lists, where each inner list is a subset
     """
-    numbers = list(map(int, input_str.split()))
-
-    unique_nums = sorted(set(numbers))
-
-    subsets = []
-
-    for r in range(len(unique_nums) + 1):
-        for combo in combinations(unique_nums, r):
-            subsets.append(list(combo))
-
-    return subsets
+    unique = sorted(set(numbers))
+    return [list(combo) for r in range(len(unique) + 1) for combo in combinations(unique, r)]
 
 
 def main():
-    """
-    Main function.
-    """
     try:
-        input_str = input("Enter natural numbers separated by spaces: ").strip()
-
-        if not input_str:
+        numbers = list(map(int, input("Enter numbers: ").split()))
+        
+        if not numbers:
             print("Error: input cannot be empty!")
-
-        else:
-            print(get_all_subsets(input_str))
-
+            return
+            
+        subsets = get_all_subsets(numbers)
+        print(subsets)
+        
     except ValueError:
-        print("Error: all elements must be natural numbers!")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
+        print("Error: all elements must be integers!")
 
 
 if __name__ == "__main__":
