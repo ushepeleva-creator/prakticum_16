@@ -12,7 +12,11 @@ def get_all_subsets(numbers):
         List of lists, where each inner list is a subset
     """
     unique = sorted(set(numbers))
-    return [list(combo) for r in range(len(unique) + 1) for combo in combinations(unique, r)]
+    result = []
+    for r in range(len(unique) + 1):
+        for combo in combinations(unique, r):
+            result.append(list(combo))
+    return result
 
 
 def main():
@@ -32,3 +36,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
