@@ -1,41 +1,25 @@
 from itertools import permutations
 
 
-def get_all_permutations(input_str: str) -> list:
-    """
-    Get all permutations of a set of natural numbers in lexicographic order.
+def get_permutations(numbers):
+    unique_sorted = sorted(set(numbers))
 
-    Returns:
-        list: List of tuples representing all permutations.
-    """
-    numbers = list(map(int, input_str.split()))
-
-    unique_nums = sorted(set(numbers))
-
-    subsets = []
-
-    for permutation in permutations(unique_nums):
-        subsets.append(list(permutation))
-
-    return subsets
+    return [list(p) for p in permutations(unique_sorted)]
 
 
 def main():
-    """
-    Main function.
-    """
     try:
-        input_str = input("Enter natural numbers separated by spaces: ").strip()
-        if not input_str:
-            print("Error: input cannot be empty!")
 
-        print(get_all_permutations(input_str))
+        numbers = list(map(int, input("Enter numbers: ").split()))
+
+        if not numbers:
+            print("Error: input cannot be empty!")
+            return
+
+        print(get_permutations(numbers))
 
     except ValueError:
-        print("Error: all elements must be natural numbers!")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
+        print("Error: all elements must be integers!")
 
 
 if __name__ == "__main__":
