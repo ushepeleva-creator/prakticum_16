@@ -1,48 +1,39 @@
 from itertools import combinations
 
 
-def get_k_subsets(input_str: str, k: int) -> list:
+def get_k_subsets(numbers, k):
     """
-    Generate all K-element subsets of a set of natural numbers.
+    Generate all K-element subsets of unique numbers.
 
     Args:
-        input_str (str): String containing natural numbers separated by spaces.
-        k (int): Size of subsets to generate.
+        numbers: List of integers (may contain duplicates)
+        k: Size of subsets to generate
 
     Returns:
-        list: List of tuples, where each tuple represents a K-element subset.
+        List of lists, where each inner list is a K-element subset
     """
-    numbers = list(map(int, input_str.split()))
-    unique_numbers = sorted(set(numbers))
-
-    subsets = []
-
-    for combo in combinations(unique_numbers, k):
-        subsets.append(list(combo))
-
-    return subsets
+    unique = sorted(set(numbers))
+    return [list(combo) for combo in combinations(unique, k)]
 
 
 def main():
-    """
-    Main function.
-    """
     try:
-        input_str = input("Enter natural numbers separated by spaces:").strip()
-
-        if not input_str:
+        numbers = list(map(int, input("Enter numbers: ").split()))
+        if not numbers:
             print("Error: input cannot be empty!")
-        else:
-            k = int(input("Enter K (subset size): ").strip())
+            return
 
-            print("=" * 50)
-            print(get_k_subsets(input_str, k))
+        k = int(input("Enter K (subset size): "))
+
+        if k < 0 or k > len(set(numbers)):
+            print(f"Error: K must be between 0 and {len(set(numbers))}")
+            return
+
+        print("=" * 50)
+        print(get_k_subsets(numbers, k))
 
     except ValueError:
-        print("Error: all elements must be natural numbers!")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
+        print("Error: all elements must be integers!")
 
 
 if __name__ == "__main__":
